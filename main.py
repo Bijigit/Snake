@@ -1,6 +1,18 @@
 import pygame
+import math
 from pygame.locals import *
 
+GRAVITY = -10
+FPS = 40
+
+
+class Vector():
+    def __init__(self, mag, angle):
+        self.mag = mag
+        self.angle = angle
+    
+    def getXMag(self):
+        return math.cos(self.angle)
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, color, radius, pos):
@@ -11,10 +23,14 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = pos
         pygame.draw.circle(self.image, color, (radius, radius), radius)
-        
+        self.velocity = Vector(0, (0,0))
 
 
+    def getNextPos(self):
+        pass
 
+    def update(self):
+        pass
 
 def main() :
     #init screen
@@ -25,23 +41,19 @@ def main() :
     #fill background
     background = pygame.Surface(screen.get_size())
     background = background.convert()
-    background.fill((250,255,255))
-
-    #display text
-    font = pygame.font.Font(None, 36)
-    text = font.render("Hello, World!", 1, (10, 10, 10))
-    textpos = text.get_rect()
-    textpos.centerx = background.get_rect().centerx
-    background.blit(text, textpos)
+    background.fill((0,0,0))
 
     #blit everything to the screen
     screen.blit(background, (0,0))
     pygame.display.flip()
     
-    ball = Ball((10,10,10), 50, (100,100))
-    
     balls = pygame.sprite.Group()
+    ball = Ball((250,250,250), 25, (100,100))
+    ball2 = Ball((255, 0, 0), 40, (300, 300))
     balls.add(ball)
+    balls.add(ball2)
+
+    clock = pygame.time.Clock()
 
     #event loop
     while 1:
@@ -49,8 +61,10 @@ def main() :
             if event.type == QUIT:
                 return
         screen.blit(background, (0,0))
-        pygame.display.flip()
         balls.draw(screen)
+        pygame.display.flip()
+        clock.tick(FPS)
+        
 
 if __name__ == '__main__':
     main()
