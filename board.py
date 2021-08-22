@@ -2,10 +2,11 @@
 
 class Board:
     
-    def __init__(self,  rows, cols):
+    def __init__(self,  rows, cols, snake):
         self.rows = rows
         self.cols = cols
         self.board = [[(0,0)] * cols] * rows
+        self.snake = snake
         self.fillBoard()
 
     def fillBoard(self):

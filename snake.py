@@ -4,17 +4,13 @@ import board
 
 class Snake:
 
-    def __init__(self, board):
-        
-        self.board = board
-        self.maxLength = self.board.getRows() * self.board.getCols()
+    def __init__(self, rows, cols):
         self.length = 3
         self.body = deque()
+        self.setBody(rows, cols)
+        
 
-
-    def setBody(self, board):
-        rows = board.getRows()
-        cols = board.getCols()
+    def setBody(self, rows, cols):
         if(rows > 10):
             headPos = (rows // 2) - 1
             xPos = cols // 2
